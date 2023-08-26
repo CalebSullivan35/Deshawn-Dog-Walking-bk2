@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import Home from "./Home";
 import { AddDogForm } from "./Components/AddDogForm/AddDogForm";
+import { ViewWalkers } from "./Components/ViewWalkers/ViewWalkers";
+import { AssignDog } from "./Components/ViewWalkers/AssignDog.js/AssignDog";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -14,6 +16,8 @@ root.render(
    <Route path="/" element={<App />}>
     <Route index element={<Home />} />
     <Route path="/add-dog" element={<AddDogForm />} />
+    <Route path="/Walkers" element={<ViewWalkers />} />
+    <Route path="/Walkers/AssignDog/:walkerId" element={<AssignDog />} />
    </Route>
   </Routes>
  </BrowserRouter>

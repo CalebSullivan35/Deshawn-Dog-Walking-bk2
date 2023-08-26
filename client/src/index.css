@@ -1,7 +1,8 @@
 @import url(./Components/DogList/DogList.css);
 @import url(./Components/DogList/DogDetails/DogDetailsPopup.css);
 @import url(./Components/AddDogForm/AddDogForm.css);
-
+@import url(./Components/ViewWalkers/ViewWalkers.css);
+@import url(./Components/ViewWalkers/AssignDog.js/AssignDog.css);
 body {
  margin: 0;
  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",

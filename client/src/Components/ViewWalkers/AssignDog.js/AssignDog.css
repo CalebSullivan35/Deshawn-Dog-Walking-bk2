@@ -1,0 +1,17 @@
+.individualDogAvailableForWalker {
+ padding: 20px;
+ display: flex;
+ width: 500px;
+ justify-content: space-between;
+}
+
+.AssignDogRoot {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ flex-direction: column;
+}
+
+.individualDogAvailableForWalkerCombo {
+ text-align: left;
+}

@@ -85,6 +85,111 @@ List<WalkerDogRelationship> walkerDogRelationships = new List<WalkerDogRelations
         DogId=3
     },
 };
+
+List<City> Cities = new List<City>
+{
+    new City(){
+        Id = 1,
+        Name = "Nashville"
+    },
+    new City()
+{
+    Id = 2,
+    Name = "New York"
+},
+new City()
+{
+    Id = 3,
+    Name = "Los Angeles"
+},
+new City()
+{
+    Id = 4,
+    Name = "Chicago"
+},
+new City()
+{
+    Id = 5,
+    Name = "San Francisco"
+},
+new City()
+{
+    Id = 6,
+    Name = "Miami"
+}
+};
+
+List<WalkerCityRelationship> WalkerCityRelationships = new List<WalkerCityRelationship>
+{
+ new WalkerCityRelationship()
+ {
+    Id = 1,
+    WalkerId =1,
+    CityId =1,
+ },
+ new WalkerCityRelationship()
+ {
+    Id = 2,
+    WalkerId =1,
+    CityId =2,
+ },
+ new WalkerCityRelationship()
+ {
+    Id = 3,
+    WalkerId =1,
+    CityId =4,
+ },
+ new WalkerCityRelationship()
+ {
+    Id = 4,
+    WalkerId =1,
+    CityId =5,
+ },
+ new WalkerCityRelationship()
+ {
+    Id = 5,
+    WalkerId =2,
+    CityId =3,
+ },
+ new WalkerCityRelationship()
+ {
+    Id = 6,
+    WalkerId =3,
+    CityId =4,
+ },
+ new WalkerCityRelationship()
+ {
+    Id = 7,
+    WalkerId =2,
+    CityId =5,
+ },
+ new WalkerCityRelationship()
+ {
+    Id = 8,
+    WalkerId =5,
+    CityId =3,
+ },
+ new WalkerCityRelationship()
+ {
+    Id = 9,
+    WalkerId =5,
+    CityId =2,
+ },
+ new WalkerCityRelationship()
+ {
+    Id = 10,
+    WalkerId =4,
+    CityId =2,
+ }
+};
+
+
+
+
+
+
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -118,6 +223,22 @@ app.MapGet("/api/dogs", () =>
     return dogs;
 });
 
+app.MapGet("/api/cities", () =>
+{
+    return Cities;
+});
+
+
+app.MapGet("/api/WalkerCityRelationships" ,() =>
+{
+    WalkerCityRelationships.ForEach(r =>
+    {
+        r.City = Cities.FirstOrDefault(c => c.Id == r.CityId);
+        r.Walker = walkers.FirstOrDefault(w => w.Id == r.WalkerId); 
+    });
+    return WalkerCityRelationships;
+});
+
 app.MapGet("/api/walkerDogRelationships", () =>
 {
     walkerDogRelationships.ForEach(r =>
@@ -135,6 +256,15 @@ app.MapPost("/api/dogs", (Dog dog) =>
     dogs.Max(d => d.Id) + 1 : 1;
     dogs.Add(dog);
     return dogs;
+});
+
+app.MapPost("/api/walkerDogRelationships", (WalkerDogRelationship walkerDogRelationship) =>
+{
+    //create a new id for the relationship.
+    walkerDogRelationship.Id = walkerDogRelationships.Count > 0 ?
+    walkerDogRelationships.Max(r => r.Id) + 1 : 1;
+    walkerDogRelationships.Add(walkerDogRelationship);
+    return walkerDogRelationships;
 });
 
 app.Run();

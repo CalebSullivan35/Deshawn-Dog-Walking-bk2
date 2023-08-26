@@ -18,6 +18,16 @@ export const getWalkerDogRelationships = async () => {
  return res.json();
 };
 
+export const getWalkerCityRelationships = async () => {
+ const res = await fetch("/api/WalkerCityRelationships");
+ return res.json();
+};
+
+export const getCities = async () => {
+ const res = await fetch("/api/cities");
+ return res.json();
+};
+
 export const postNewDog = async (newDogData) => {
  const response = await fetch("/api/dogs", {
   method: "POST",
@@ -31,5 +41,21 @@ export const postNewDog = async (newDogData) => {
   return null;
  }
  console.log("New Dog Added!");
+ return response.json();
+};
+
+export const postNewWalkerDogRelationship = async (newRelationshipData) => {
+ const response = await fetch("/api/walkerDogRelationships", {
+  method: "POST",
+  headers: {
+   "Content-Type": "application/json",
+  },
+  body: JSON.stringify(newRelationshipData),
+ });
+ if (!response.ok) {
+  console.error("Failed to Add New Relationship");
+  return null;
+ }
+ console.log("New Relationship Added!");
  return response.json();
 };
