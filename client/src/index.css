@@ -1,5 +1,6 @@
 @import url(./Components/DogList/DogList.css);
 @import url(./Components/DogList/DogDetails/DogDetailsPopup.css);
+@import url(./Components/AddDogForm/AddDogForm.css);
 
 body {
  margin: 0;

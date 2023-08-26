@@ -5,16 +5,18 @@ import App from "./App";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import Home from "./Home";
+import { AddDogForm } from "./Components/AddDogForm/AddDogForm";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />}>
-        <Route index element={<Home />} />
-      </Route>
-    </Routes>
-  </BrowserRouter>,
+ <BrowserRouter>
+  <Routes>
+   <Route path="/" element={<App />}>
+    <Route index element={<Home />} />
+    <Route path="/add-dog" element={<AddDogForm />} />
+   </Route>
+  </Routes>
+ </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

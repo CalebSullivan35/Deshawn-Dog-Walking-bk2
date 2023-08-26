@@ -128,4 +128,13 @@ app.MapGet("/api/walkerDogRelationships", () =>
     return walkerDogRelationships;
 });
 
+app.MapPost("/api/dogs", (Dog dog) =>
+{
+    //create a new id for the dog.
+    dog.Id = dogs.Count > 0 ?
+    dogs.Max(d => d.Id) + 1 : 1;
+    dogs.Add(dog);
+    return dogs;
+});
+
 app.Run();
