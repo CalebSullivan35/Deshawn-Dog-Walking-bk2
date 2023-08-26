@@ -7,3 +7,13 @@ export const getDogs = async () => {
  const res = await fetch("/api/dogs");
  return res.json();
 };
+
+export const getWalkers = async () => {
+ const res = await fetch("/api/walkers");
+ return res.json();
+};
+
+export const getWalkerDogRelationships = async () => {
+ const res = await fetch("/api/walkerDogRelationships");
+ return res.json();
+};

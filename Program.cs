@@ -8,22 +8,26 @@ List<Dog> dogs = new List<Dog>{
         Name = "Bruce",
         Breed = "Schnauzer"
     },
-    new Dog(){
+    new Dog()
+    {
         Id =2,
         Name ="Bailey",
         Breed = "Schnauzer"
     },
-    new Dog(){
+    new Dog()
+    {
         Id = 3,
         Name = "Sasha",
         Breed ="Husky"
     },
-    new Dog(){
+    new Dog()
+    {
         Id = 4,
         Name = "Tali",
         Breed= "Golden Labradoodle"
     },
-    new Dog(){
+    new Dog()
+    {
         Id = 5,
         Name = "Remy",
         Breed = "Red Lab"
@@ -32,6 +36,53 @@ List<Dog> dogs = new List<Dog>{
         Id = 6,
         Name = "Goose",
         Breed = "Great Pyrenees"
+    },
+};
+List<Walker> walkers = new List<Walker>
+{
+    new Walker(){
+        Id = 1,
+        Name = "Caleb"
+    },
+    new Walker()
+    {
+        Id = 2,
+        Name = "Chase"
+    },
+    new Walker()
+    {
+        Id = 3,
+        Name = "Ryan"
+    },
+    new Walker()
+    {
+        Id = 4,
+        Name = "John"
+    },
+    new Walker()
+    {
+        Id = 5,
+        Name = "Deanna"
+    }
+};
+
+List<WalkerDogRelationship> walkerDogRelationships = new List<WalkerDogRelationship>
+{
+    new WalkerDogRelationship()
+    {
+        Id =1,
+        WalkerId =1,
+        DogId=1
+    },
+    new WalkerDogRelationship(){
+        Id =2,
+        WalkerId =1,
+        DogId=2
+    },
+    new WalkerDogRelationship(){
+        Id =3,
+        WalkerId =1,
+        DogId=3
     },
 };
 var builder = WebApplication.CreateBuilder(args);
@@ -57,10 +108,24 @@ app.MapGet("/api/hello", () =>
     return new { Message = "Welcome to DeShawn's Dog Walking" };
 });
 
-app.MapGet("api/dogs", () =>
+app.MapGet("/api/walkers", () =>
+{
+    return walkers;
+});
+
+app.MapGet("/api/dogs", () =>
 {
     return dogs;
 });
 
+app.MapGet("/api/walkerDogRelationships", () =>
+{
+    walkerDogRelationships.ForEach(r =>
+    {
+        r.Walker = walkers.FirstOrDefault(w => w.Id == r.WalkerId);
+        r.Dog = dogs.FirstOrDefault(d => d.Id == r.DogId);
+    });
+    return walkerDogRelationships;
+});
 
 app.Run();
