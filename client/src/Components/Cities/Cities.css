@@ -1,0 +1,19 @@
+.FormForAddCity {
+ margin-top: 20px;
+ text-align: center;
+ display: flex;
+ flex-direction: row;
+ justify-content: space-between;
+ width: 375px;
+}
+
+.CityScreenRoot {
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+}
+.cityList {
+ width: 400px;
+ text-align: left;
+}

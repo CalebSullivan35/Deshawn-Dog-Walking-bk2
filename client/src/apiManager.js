@@ -44,6 +44,22 @@ export const postNewDog = async (newDogData) => {
  return response.json();
 };
 
+export const postNewCity = async (newCityData) => {
+ const response = await fetch("/api/cities", {
+  method: "POST",
+  headers: {
+   "Content-Type": "application/json",
+  },
+  body: JSON.stringify(newCityData),
+ });
+ if (!response.ok) {
+  console.error("Failed to Add New City");
+  return null;
+ }
+ console.log("New City Added!");
+ return response.json();
+};
+
 export const postNewWalkerDogRelationship = async (newRelationshipData) => {
  const response = await fetch("/api/walkerDogRelationships", {
   method: "POST",

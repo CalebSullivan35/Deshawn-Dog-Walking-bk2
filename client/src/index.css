@@ -3,6 +3,7 @@
 @import url(./Components/AddDogForm/AddDogForm.css);
 @import url(./Components/ViewWalkers/ViewWalkers.css);
 @import url(./Components/ViewWalkers/AssignDog.js/AssignDog.css);
+@import url(./Components/Cities/Cities.css);
 body {
  margin: 0;
  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
