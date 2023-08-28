@@ -10,34 +10,40 @@ import {
 export const AssignDog = () => {
  const [dogsWithoutWalkers, setDogsWithoutWalkers] = useState([]);
  const [walker, setWalker] = useState({});
+ const [allWalkers, setAllWalkers] = useState([]);
  const { walkerId } = useParams();
  //get a list of all the current unassigned dogs.
  //first fetch dogs then filter.
  useEffect(() => {
   async function fetchInfoAndSetDogs() {
    const allDogData = await getDogs();
-   console.log(allDogData);
    const allRelationships = await getWalkerDogRelationships();
-   console.log(allRelationships);
    //crazy filter that gets rid of all dogs with preexisting relationships.
    const dogsNoWalkerData = allDogData.filter(
     (d) => !allRelationships.some((relationship) => relationship.dogId === d.id)
    );
    setDogsWithoutWalkers(dogsNoWalkerData);
-   //get the walker based off id.
+   //get all the walkers and store in state.
    const walkersData = await getWalkers();
-   console.log("walker data" + walkersData);
-   //  console.log(walkerId);
-   //  const myWalker = walkersData.find((w) => w.id === walkerId);
-   //  setWalker(myWalker);
-   //  console.log(myWalker);
+   const myWalker = walkersData.find((w) => w.id === parseInt(walkerId));
+   setWalker(myWalker);
   }
   fetchInfoAndSetDogs();
  }, []);
 
  //when we assign we need to post.
- const handleAddRelationship = (dog) => {
-  postNewWalkerDogRelationship();
+ const handleAddRelationship = (dogToPass) => {
+  postNewWalkerDogRelationship({
+   WalkerId: parseInt(walkerId),
+   Walker: walker,
+   DogId: dogToPass.id,
+   Dog: dogToPass,
+  }).then(() => {
+   // Update the dogsWithoutWalkers state after the assignment
+   setDogsWithoutWalkers((prevDogsWithoutWalkers) =>
+    prevDogsWithoutWalkers.filter((d) => d.id !== dogToPass.id)
+   );
+  });
  };
 
  return (
@@ -49,7 +55,13 @@ export const AssignDog = () => {
        <h4>Breed: {d.breed}</h4>
        <h4>Name: {d.name}</h4>
       </div>
-      <button>Assign</button>
+      <button
+       onClick={() => {
+        handleAddRelationship(d);
+       }}
+      >
+       Assign
+      </button>
      </div>
     );
    })}
