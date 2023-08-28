@@ -6,12 +6,17 @@ import {
  getWalkers,
  postNewWalkerDogRelationship,
 } from "../../../apiManager";
+import { Popup } from "./Popup/Popup";
 
 export const AssignDog = () => {
  const [dogsWithoutWalkers, setDogsWithoutWalkers] = useState([]);
  const [walker, setWalker] = useState({});
  const [allWalkers, setAllWalkers] = useState([]);
+ //state for popup to show selected dogs details.
+ const [isPopUpVisible, setIsPopupVisible] = useState(false);
+ const [dogJustAdded, setDogJustAdded] = useState({});
  const { walkerId } = useParams();
+
  //get a list of all the current unassigned dogs.
  //first fetch dogs then filter.
  useEffect(() => {
@@ -40,10 +45,26 @@ export const AssignDog = () => {
    Dog: dogToPass,
   }).then(() => {
    // Update the dogsWithoutWalkers state after the assignment
+   setDogJustAdded({
+    WalkerId: parseInt(walkerId),
+    Walker: walker,
+    DogId: dogToPass.id,
+    Dog: dogToPass,
+   });
    setDogsWithoutWalkers((prevDogsWithoutWalkers) =>
     prevDogsWithoutWalkers.filter((d) => d.id !== dogToPass.id)
    );
   });
+ };
+
+ //functions to hide and show popup.
+
+ const showPopup = () => {
+  setIsPopupVisible(true);
+ };
+
+ const hidePopup = () => {
+  setIsPopupVisible(false);
  };
 
  return (
@@ -58,6 +79,7 @@ export const AssignDog = () => {
       <button
        onClick={() => {
         handleAddRelationship(d);
+        setIsPopupVisible(true);
        }}
       >
        Assign
@@ -65,6 +87,9 @@ export const AssignDog = () => {
      </div>
     );
    })}
+   {isPopUpVisible && (
+    <Popup hidePopup={hidePopup} dogJustAdded={dogJustAdded} />
+   )}
   </div>
  );
 };
