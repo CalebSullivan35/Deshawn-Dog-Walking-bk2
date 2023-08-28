@@ -8,6 +8,7 @@ import Home from "./Home";
 import { AddDogForm } from "./Components/AddDogForm/AddDogForm";
 import { ViewWalkers } from "./Components/ViewWalkers/ViewWalkers";
 import { AssignDog } from "./Components/ViewWalkers/AssignDog.js/AssignDog";
+import { Cities } from "./Components/Cities/Cities";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -18,6 +19,7 @@ root.render(
     <Route path="/add-dog" element={<AddDogForm />} />
     <Route path="/Walkers" element={<ViewWalkers />} />
     <Route path="/Walkers/AssignDog/:walkerId" element={<AssignDog />} />
+    <Route path="/Cities" element={<Cities />} />
    </Route>
   </Routes>
  </BrowserRouter>

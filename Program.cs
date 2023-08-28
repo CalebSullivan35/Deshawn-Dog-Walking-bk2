@@ -255,7 +255,7 @@ app.MapPost("/api/dogs", (Dog dog) =>
     dog.Id = dogs.Count > 0 ?
     dogs.Max(d => d.Id) + 1 : 1;
     dogs.Add(dog);
-    return dogs;
+    return dog;
 });
 
 app.MapPost("/api/walkerDogRelationships", (WalkerDogRelationship walkerDogRelationship) =>
@@ -265,6 +265,16 @@ app.MapPost("/api/walkerDogRelationships", (WalkerDogRelationship walkerDogRelat
     walkerDogRelationships.Max(r => r.Id) + 1 : 1;
     walkerDogRelationships.Add(walkerDogRelationship);
     return walkerDogRelationships;
+});
+
+//post a new city
+
+app.MapPost("/api/cities", (City city) =>
+{
+    city.Id = Cities.Count > 0 ?
+    Cities.Max(c => c.Id) + 1 : 1;
+    Cities.Add(city);
+    return city;
 });
 
 app.Run();
