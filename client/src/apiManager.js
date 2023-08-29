@@ -115,3 +115,17 @@ export const postNewListWalkerCityRelationships = async (relatioships) => {
  console.log("New Relationships Added!");
  return response.json();
 };
+
+//delete a dog
+
+export const deleteDog = async (id) => {
+ const response = await fetch(`/api/dogs/${id}`, {
+  method: "DELETE",
+ });
+};
+
+export const deleteWalker = async (id) => {
+ const respone = await fetch(`/api/walkers/${id}`, {
+  method: "DELETE",
+ });
+};
