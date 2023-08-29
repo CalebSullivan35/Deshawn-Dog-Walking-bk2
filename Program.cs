@@ -277,4 +277,41 @@ app.MapPost("/api/cities", (City city) =>
     return city;
 });
 
+//delete from the walkerCityRelationships.
+app.MapDelete("/api/WalkerCityRelationship/{id}", (int id) =>
+{
+    //find the relationships to remove based on the idea.
+    List<WalkerCityRelationship> walkerCityRelationshipsToRemove = WalkerCityRelationships.Where((r) => r.WalkerId == id).ToList();
+
+    walkerCityRelationshipsToRemove.ForEach((r) =>
+    {
+        WalkerCityRelationships.Remove(r);
+    });
+    return walkerCityRelationshipsToRemove;
+});
+
+
+//Post to the walkerCityRelationships as a whole list.
+app.MapPost("/api/WalkerCityRelationship", (List <WalkerCityRelationship> walkerCityRelationshipList) =>
+{
+    walkerCityRelationshipList.ForEach((r) =>
+    {
+        r.Id = WalkerCityRelationships.Count > 0 ?
+        WalkerCityRelationships.Max(wcr => wcr.Id) + 1 : 1;
+        WalkerCityRelationships.Add(r);
+    });
+    return walkerCityRelationshipList;
+});
+
+//we will need to do a put request on the actual walker to update its lists of cities.
+app.MapPut("/api/walkers/{id}", (int id, Walker walker) =>
+{
+    //find the selected walker to do a put request.
+    Walker walkerToUpdate = walkers.FirstOrDefault(w => w.Id == id);
+    int walkerIndex = walkers.IndexOf(walkerToUpdate);
+    walkers[walkerIndex] = walker;
+    return walker;
+    
+});
+
 app.Run();

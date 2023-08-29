@@ -4,7 +4,7 @@ import {
  getWalkerCityRelationships,
  getWalkers,
 } from "../../apiManager";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const ViewWalkers = () => {
  const [walkers, setWalkers] = useState([]);
@@ -72,7 +72,9 @@ export const ViewWalkers = () => {
     {filteredWalkers.map((w) => {
      return (
       <div className="walkerContainer">
-       <h1>Name: {w.name}</h1>
+       <h1>
+        Name: <Link to={`/updateWalker/${w.id}`}>{w.name}</Link>
+       </h1>
        <button
         onClick={() => {
          navigate(`/Walkers/AssignDog/${w.id}`);

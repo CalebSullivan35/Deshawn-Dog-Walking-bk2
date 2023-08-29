@@ -75,3 +75,43 @@ export const postNewWalkerDogRelationship = async (newRelationshipData) => {
  console.log("New Relationship Added!");
  return response.json();
 };
+
+//use a put requests.
+export const putNewWalkerCities = async (walkerId, walker) => {
+ const response = await fetch(`/api/walkers/${walkerId}`, {
+  method: "PUT",
+  headers: {
+   "Content-Type": "application/json",
+  },
+  body: JSON.stringify(walker),
+ });
+ if (!response.ok) {
+  console.error("Failed to change new Walker");
+  return null;
+ }
+ console.log("New Relationship Added!");
+ return response.json();
+};
+
+//delete the request.
+export const deleteOldWalkerCityRelationships = async (id) => {
+ const response = await fetch(`/api/WalkerCityRelationship/${id}`, {
+  method: "DELETE",
+ });
+};
+//post a list of new walkerCityRelationships.
+export const postNewListWalkerCityRelationships = async (relatioships) => {
+ const response = await fetch("/api/WalkerCityRelationship", {
+  method: "POST",
+  headers: {
+   "Content-Type": "application/json",
+  },
+  body: JSON.stringify(relatioships),
+ });
+ if (!response.ok) {
+  console.error("Failed to Add New Relationships");
+  return null;
+ }
+ console.log("New Relationships Added!");
+ return response.json();
+};
