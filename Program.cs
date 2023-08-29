@@ -290,6 +290,17 @@ app.MapDelete("/api/WalkerCityRelationship/{id}", (int id) =>
     return walkerCityRelationshipsToRemove;
 });
 
+//delete from the the dogs
+app.MapDelete("/api/dogs/{id}", (int id) =>
+{
+    {
+        //find the dog to remove based of off dog id
+        Dog dogToRemove = dogs.FirstOrDefault((dog) => dog.Id == id);
+        dogs.Remove(dogToRemove);
+        return dogToRemove;
+    }
+});
+
 
 //Post to the walkerCityRelationships as a whole list.
 app.MapPost("/api/WalkerCityRelationship", (List <WalkerCityRelationship> walkerCityRelationshipList) =>
@@ -314,4 +325,22 @@ app.MapPut("/api/walkers/{id}", (int id, Walker walker) =>
     
 });
 
+//delete a walker
+
+app.MapDelete("/api/walkers/{id}", (int id) =>
+{
+    Walker walkerToRemove = walkers.FirstOrDefault((w) => w.Id == id);
+    walkers.Remove(walkerToRemove);
+    //also lets remove any relationships with that walker with dogs. 
+    List<WalkerDogRelationship> walkerDogRelationshipsToDelete = walkerDogRelationships.Where((r) => r.WalkerId == id).ToList();
+    //now lets loop through this array and remove em all
+    walkerDogRelationshipsToDelete.ForEach((r) =>
+    {
+        walkerDogRelationships.Remove(r);
+    });
+    return walkerToRemove;
+});
+
 app.Run();
+
+//put request on the dogs. 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+ deleteWalker,
  getCities,
  getWalkerCityRelationships,
  getWalkers,
@@ -14,16 +15,16 @@ export const ViewWalkers = () => {
  const [selectedCity, setSelectedCity] = useState(""); // Initialize as an empty string
  const navigate = useNavigate();
  // Fetch all needed data
+ async function fetchData() {
+  const walkerData = await getWalkers();
+  setWalkers(walkerData);
+  setFilteredWalkers(walkerData);
+  const relationshipData = await getWalkerCityRelationships();
+  setWalkerCityRelationships(relationshipData);
+  const cityData = await getCities();
+  setCities(cityData);
+ }
  useEffect(() => {
-  async function fetchData() {
-   const walkerData = await getWalkers();
-   setWalkers(walkerData);
-   setFilteredWalkers(walkerData);
-   const relationshipData = await getWalkerCityRelationships();
-   setWalkerCityRelationships(relationshipData);
-   const cityData = await getCities();
-   setCities(cityData);
-  }
   fetchData();
  }, []);
 
@@ -81,6 +82,14 @@ export const ViewWalkers = () => {
         }}
        >
         Add Dog
+       </button>
+       <button
+        onClick={async () => {
+         await deleteWalker(w.id);
+         fetchData();
+        }}
+       >
+        Remove Walker
        </button>
       </div>
      );
